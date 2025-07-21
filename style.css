@@ -1,0 +1,359 @@
+/* Mobile-First Latent Space Demonstrator */
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    -webkit-tap-highlight-color: transparent;
+}
+
+body {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    background: #f8f9fa;
+    color: #333;
+    overflow-x: hidden;
+    touch-action: manipulation;
+}
+
+.mobile-container {
+    max-width: 100vw;
+    min-height: 100vh;
+    background: white;
+}
+
+/* Header */
+.mobile-header {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: white;
+    padding: 12px 16px;
+    text-align: center;
+}
+
+.mobile-header h1 {
+    font-size: 1.25rem;
+    font-weight: 600;
+}
+
+/* Drawing Section */
+.draw-section {
+    padding: 16px;
+    background: white;
+}
+
+#drawingCanvas {
+    display: block;
+    margin: 0 auto 12px;
+    border: 2px solid #e5e7eb;
+    border-radius: 12px;
+    background: white;
+    touch-action: none;
+    cursor: crosshair;
+}
+
+.draw-controls {
+    display: flex;
+    gap: 8px;
+    justify-content: center;
+    align-items: center;
+}
+
+.btn-small {
+    padding: 8px 16px;
+    border: none;
+    border-radius: 6px;
+    font-size: 14px;
+    font-weight: 500;
+    background: #f3f4f6;
+    color: #333;
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+.btn-add {
+    background: #10b981;
+    color: white;
+}
+
+.digit-select {
+    padding: 8px 12px;
+    border: 1px solid #e5e7eb;
+    border-radius: 6px;
+    font-size: 14px;
+    background: white;
+}
+
+/* Latent Space Section */
+.latent-section {
+    padding: 16px;
+    background: #f8f9fa;
+}
+
+.mobile-latent-space {
+    width: 100%;
+    height: 200px;
+    background: white;
+    border: 1px solid #e5e7eb;
+    border-radius: 12px;
+    margin-bottom: 12px;
+}
+
+.prediction-info {
+    background: white;
+    border-radius: 8px;
+    padding: 12px;
+}
+
+.prediction-main-mobile {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: 8px;
+}
+
+.pred-label {
+    font-size: 14px;
+    color: #6b7280;
+}
+
+.pred-digit {
+    font-size: 24px;
+    font-weight: bold;
+    color: #6366f1;
+}
+
+.pred-conf {
+    font-size: 14px;
+    color: #10b981;
+    font-weight: 500;
+}
+
+.prediction-bars {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
+
+.confidence-bar {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 12px;
+}
+
+.confidence-bar-label {
+    width: 16px;
+    text-align: center;
+    font-weight: 600;
+}
+
+.confidence-bar-container {
+    flex: 1;
+    height: 12px;
+    background: #e5e7eb;
+    border-radius: 6px;
+    overflow: hidden;
+}
+
+.confidence-bar-fill {
+    height: 100%;
+    background: linear-gradient(to right, #6366f1, #8b5cf6);
+    transition: width 0.3s;
+}
+
+.confidence-bar-value {
+    width: 35px;
+    text-align: right;
+    font-size: 11px;
+    color: #6b7280;
+}
+
+/* Encoding Section */
+.encoding-section {
+    padding: 16px;
+    background: white;
+}
+
+.encoding-mini {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
+    margin-bottom: 8px;
+}
+
+.enc-item {
+    text-align: center;
+}
+
+.enc-item canvas {
+    border: 1px solid #e5e7eb;
+    border-radius: 6px;
+    display: block;
+}
+
+.enc-latent {
+    background: #f0fdf4;
+    padding: 8px;
+    border-radius: 8px;
+}
+
+.latent-dot-container {
+    width: 60px;
+    height: 60px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.latent-coord {
+    font-family: monospace;
+    font-size: 11px;
+    color: #059669;
+    font-weight: bold;
+}
+
+.enc-label {
+    display: block;
+    font-size: 11px;
+    color: #6b7280;
+    margin-top: 4px;
+}
+
+.enc-arrow {
+    font-size: 20px;
+    color: #9ca3af;
+}
+
+
+.loss-info {
+    text-align: center;
+    font-size: 13px;
+    color: #6b7280;
+}
+
+.loss-info span {
+    color: #ef4444;
+    font-weight: 600;
+}
+
+/* Train Section */
+.train-section {
+    padding: 16px;
+    background: #f8f9fa;
+    position: sticky;
+    bottom: 0;
+    border-top: 1px solid #e5e7eb;
+}
+
+.train-info {
+    text-align: center;
+    font-size: 13px;
+    color: #6b7280;
+    margin-bottom: 8px;
+}
+
+.train-info span {
+    font-weight: 600;
+    color: #333;
+}
+
+#sampleCount {
+    color: #10b981;
+    font-size: 16px;
+}
+
+.btn-train-mobile {
+    width: 100%;
+    padding: 12px;
+    border: none;
+    border-radius: 8px;
+    background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+    color: white;
+    font-size: 16px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: transform 0.2s;
+}
+
+.btn-train-mobile:active {
+    transform: scale(0.98);
+}
+
+.training-progress {
+    margin-top: 12px;
+}
+
+.progress-bar-mobile {
+    width: 100%;
+    height: 6px;
+    background: #e5e7eb;
+    border-radius: 3px;
+    overflow: hidden;
+    margin-bottom: 4px;
+}
+
+.progress-fill {
+    height: 100%;
+    background: linear-gradient(to right, #6366f1, #8b5cf6);
+    transition: width 0.3s;
+}
+
+.progress-text {
+    font-size: 12px;
+    color: #6b7280;
+    text-align: center;
+    display: block;
+}
+
+/* D3 Styles */
+.dot {
+    stroke: white;
+    stroke-width: 1.5px;
+    cursor: pointer;
+}
+
+.current-point {
+    stroke: #ef4444;
+    stroke-width: 2px;
+    fill: #ef4444;
+}
+
+.axis {
+    font-size: 10px;
+}
+
+.axis-label {
+    font-size: 11px;
+    fill: #6b7280;
+}
+
+.training-indicator {
+    font-size: 12px;
+}
+
+/* Color palette for digits */
+.legend {
+    display: none; /* Hide legend on mobile */
+}
+
+/* Responsive - Larger screens */
+@media (min-width: 768px) {
+    .mobile-container {
+        max-width: 400px;
+        margin: 0 auto;
+        box-shadow: 0 0 20px rgba(0,0,0,0.1);
+    }
+    
+    .mobile-header h1 {
+        font-size: 1.5rem;
+    }
+    
+    #drawingCanvas {
+        width: 280px;
+        height: 280px;
+    }
+    
+    .mobile-latent-space {
+        height: 300px;
+    }
+}

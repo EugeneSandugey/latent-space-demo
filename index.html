@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Eugene's Latent Space</title>
+    <script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs@latest"></script>
+    <script src="https://d3js.org/d3.v7.min.js"></script>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="mobile-container">
+        <!-- Header -->
+        <header class="mobile-header">
+            <h1>Eugene's Latent Space</h1>
+        </header>
+
+        <!-- Drawing Section -->
+        <div class="draw-section">
+            <canvas id="drawingCanvas" width="240" height="240"></canvas>
+            <div class="draw-controls">
+                <button id="clearCanvas" class="btn-small">Clear</button>
+                <select id="digitLabel" class="digit-select">
+                    <option value="0">0</option>
+                    <option value="1">1</option>
+                    <option value="2">2</option>
+                    <option value="3">3</option>
+                    <option value="4">4</option>
+                    <option value="5">5</option>
+                    <option value="6">6</option>
+                    <option value="7">7</option>
+                    <option value="8">8</option>
+                    <option value="9">9</option>
+                </select>
+                <button id="addToTraining" class="btn-small btn-add">Add</button>
+            </div>
+        </div>
+
+        <!-- Latent Space & Prediction -->
+        <div class="latent-section">
+            <div id="latentSpace" class="mobile-latent-space"></div>
+            <div class="prediction-info">
+                <div class="prediction-main-mobile">
+                    <span class="pred-label">Prediction:</span>
+                    <span class="pred-digit" id="predictedDigit">-</span>
+                    <span class="pred-conf" id="predictionConfidence">0%</span>
+                </div>
+                <div class="prediction-bars" id="confidenceBars"></div>
+            </div>
+        </div>
+
+        <!-- Encoding Visualization -->
+        <div class="encoding-section">
+            <div class="encoding-mini">
+                <div class="enc-item">
+                    <canvas id="inputDisplay" width="60" height="60"></canvas>
+                    <span class="enc-label">Input</span>
+                </div>
+                <div class="enc-arrow">→</div>
+                <div class="enc-item enc-latent">
+                    <div class="latent-dot-container">
+                        <span id="encodedDisplay" class="latent-coord">(0,0)</span>
+                    </div>
+                    <span class="enc-label">Latent</span>
+                </div>
+                <div class="enc-arrow">→</div>
+                <div class="enc-item">
+                    <canvas id="outputDisplay" width="60" height="60"></canvas>
+                    <span class="enc-label">Output</span>
+                </div>
+            </div>
+            <div class="loss-info">Loss: <span id="reconstructionLoss">-</span></div>
+        </div>
+
+        <!-- Train Button -->
+        <div class="train-section">
+            <div class="train-info">
+                <span id="sampleCount">0</span> samples | 
+                <span id="trainStatus">Untrained</span>
+            </div>
+            <button id="trainModel" class="btn-train-mobile">Train Network</button>
+            <div class="training-progress" style="display: none;">
+                <div class="progress-bar-mobile">
+                    <div class="progress-fill" id="trainingProgressBar"></div>
+                </div>
+                <span id="progressText" class="progress-text">0%</span>
+            </div>
+        </div>
+    </div>
+
+    <script src="autoencoder.js"></script>
+</body>
+</html>
